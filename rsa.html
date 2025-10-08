@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Verschlüsselung mit RSA</title>
+    <style>
+        body {
+            margin: 32px;
+        }
+
+        textarea,
+        input,
+        button,
+        #out {
+            width: 100%;
+            margin: 8px 0px;
+            padding: 8px;
+        }
+
+        #out {
+            background: #f4f4f5;
+            padding: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Vereinfachte RSA-Verschlüsselung</h1>
+    <label>Text</label>
+    <textarea rows="5" id="text" placeholder="Gib hier deinen Text ein..."></textarea>
+
+    <label>Öffentlicher Exponent (e)</label>
+    <input type="number" id="e" value="3">
+
+    <label>Modul (n)</label>
+    <input type="number" id="n" value="33">
+
+    <button onclick="rsaEncrypt()">🔒 Verschlüsseln</button>
+    <button onclick="rsaDecrypt()">🔓 Entschlüsseln</button>
+
+    <label>Ausgabe</label>
+    <div id="out"></div>
+
+    <script>
+        // RSA Verschlüsselung mit vereinfachtem System
+        function rsaEncrypt() {
+            out.innerText = '';
+
+            let unencryptedText = text.value;
+            let e = +document.getElementById('e').value;
+            let n = +document.getElementById('n').value;
+
+            for (let i = 0; i < unencryptedText.length; i++) {
+                let charCode = unencryptedText.charCodeAt(i);
+                let encryptedCode = modPow(charCode, e, n); // c = m^e mod n
+                out.innerText += encryptedCode + ' ';
+            }
+        }
+
+        // RSA Entschlüsselung mit vereinfachtem System
+        function rsaDecrypt() {
+            out.innerText = '';
+
+            let encryptedText = text.value.split(' ');
+            let e = +document.getElementById('e').value;
+            let n = +document.getElementById('n').value;
+
+            // Wir nehmen einen privaten Exponenten (d) an (dieser ist normalerweise geheim)
+            let d = 7; // d ist der private Schlüssel in diesem einfachen Beispiel
+
+            for (let i = 0; i < encryptedText.length; i++) {
+                let encryptedCode = +encryptedText[i];
+                let decryptedCode = modPow(encryptedCode, d, n); // m = c^d mod n
+                out.innerText += String.fromCharCode(decryptedCode);
+            }
+        }
+
+        // Modulare Exponentiation: (base^exp) % mod
+        function modPow(base, exp, mod) {
+            let result = 1;
+            base = base % mod;
+            while (exp > 0) {
+                if (exp % 2 === 1) {
+                    result = (result * base) % mod;
+                }
+                exp = Math.floor(exp / 2);
+                base = (base * base) % mod;
+            }
+            return result;
+        }
+    </script>
+</body>
+
+</html>

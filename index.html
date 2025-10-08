@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Verschlüsselung</title>
+    <style>
+        body {
+            margin: 32px;
+
+        }
+
+        textarea,
+        input,
+        button,
+        #out {
+            width: 100%;
+            margin: 8px 0px;
+            padding: 8px;
+        }
+
+        #out {
+            background: #f4f4f5;
+            padding: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Caesar-Verschlüsselung</h1>
+    <label>Text</label>
+    <textarea rows="5" id="text" placeholder="Gib hier deinen Text ein..."></textarea>
+
+    <label>Schlüssel (-25 bis 25)</label>
+    <input type="number" id="key" value="3" min="-25" max="25">
+
+    <button onclick="ceasar()">🔒 Verschlüsseln</button>
+    <button onclick="decrypt()">🔓 Entschlüsseln</button>
+
+    <label>Ausgabe</label>
+    <div id="out"></div>
+
+    <script>
+        function ceasar() {
+            out.innerText = '';
+
+            let unencryptedText = text.value;
+            for (let i = 0; i < unencryptedText.length; i++) {
+                let numberOfCharacter = unencryptedText.charCodeAt(i) - 65;
+                let code = (numberOfCharacter + +key.value) % 26;
+                out.innerText += String.fromCharCode(code + 65);
+            }
+        }
+
+        function decrypt() {
+            out.innerText = '';
+
+            let unencryptedText = text.value;
+            for (let i = 0; i < unencryptedText.length; i++) {
+                let numberOfCharacter = unencryptedText.charCodeAt(i) - 65;
+                let code = (numberOfCharacter - +key.value + 26) % 26;
+                out.innerText += String.fromCharCode(code + 65);
+            }
+        }
+    </script>
+</body>
+
+</html>
