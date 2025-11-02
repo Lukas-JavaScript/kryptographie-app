@@ -1,0 +1,17 @@
+body {
+    margin: 32px;
+}
+
+textarea,
+input,
+button,
+#out {
+    width: 100%;
+    margin: 8px 0;
+    padding: 8px;
+}
+
+#out {
+    background: #f4f4f5;
+    padding: 4px;
+}
