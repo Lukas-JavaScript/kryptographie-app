@@ -5,26 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text Verschlüsselung</title>
-    <style>
-        body {
-            margin: 32px;
-
-        }
-
-        textarea,
-        input,
-        button,
-        #out {
-            width: 100%;
-            margin: 8px 0px;
-            padding: 8px;
-        }
-
-        #out {
-            background: #f4f4f5;
-            padding: 4px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -40,30 +21,6 @@
 
     <label>Ausgabe</label>
     <div id="out"></div>
-
-    <script>
-        function ceasar() {
-            out.innerText = '';
-
-            let unencryptedText = text.value;
-            for (let i = 0; i < unencryptedText.length; i++) {
-                let numberOfCharacter = unencryptedText.charCodeAt(i) - 65;
-                let code = (numberOfCharacter + +key.value) % 26;
-                out.innerText += String.fromCharCode(code + 65);
-            }
-        }
-
-        function decrypt() {
-            out.innerText = '';
-
-            let unencryptedText = text.value;
-            for (let i = 0; i < unencryptedText.length; i++) {
-                let numberOfCharacter = unencryptedText.charCodeAt(i) - 65;
-                let code = (numberOfCharacter - +key.value + 26) % 26;
-                out.innerText += String.fromCharCode(code + 65);
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
-
 </html>
